@@ -13,12 +13,12 @@ describe('test fetch mock', () => {
   });
 
   it('fetch /api/users with parameters', async () => {
-    const { data } = await fetch('/api/users'. {
-      
+    const { data } = await fetch('/api/users', {
+      name: 'John',
     });
     expect(data).not.to.be(undefined);
     expect(data).not.to.be.empty();
     expect(data).to.be.an('array');
-    expect(data).to.have.length(2);
+    expect(data).to.have.length(1);
   });
 });
