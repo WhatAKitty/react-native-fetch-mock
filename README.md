@@ -7,6 +7,9 @@ fetch mock for react-native
 No fetch mock could be used easily for react-native.  
 So, I create one by myself.
 
+## Roadmap
+- [ ] Combined with Mock.js
+
 ## Usage
 ```
 import FetchMock from 'react-native-fetch-mock';
