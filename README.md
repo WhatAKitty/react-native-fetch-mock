@@ -2,7 +2,7 @@
 fetch mock for react-native
 
 ## Why FetchMock ?
-No fetch mock easily could be used for react-native.  
+No fetch mock could be used easily for react-native.  
 So, I create one by myself.
 
 ## Usage
