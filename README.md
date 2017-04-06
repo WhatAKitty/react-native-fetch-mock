@@ -1,4 +1,6 @@
 # react-native-fetch-mock
+[![Build Status](https://travis-ci.org/WhatAKitty/react-native-fetch-mock.svg?branch=master)](https://travis-ci.org/WhatAKitty/react-native-fetch-mock)
+
 fetch mock for react-native
 
 ## Why FetchMock ?
