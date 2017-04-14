@@ -11,6 +11,25 @@ So, I create one by myself.
 - [x] Combined with Mock.js
 
 ## Usage
+
+__ mocks__/index.js
+```
+export default {
+  '/api/path': async (options) => {
+    const all = Mock.mock({
+      'list|2': [{
+        'id|+1': 1,
+        'name': '@first @last',
+        'age|18-54': 1,
+      }]
+    }).list;
+    return {
+      data: all,
+    }
+  }
+}
+```
+index.js
 ```
 import FetchMock from 'react-native-fetch-mock';
 
