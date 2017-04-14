@@ -1,0 +1,7 @@
+.DS_Store
+logs
+*.log
+__mocks__
+dist
+node_modules
+example

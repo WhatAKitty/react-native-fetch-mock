@@ -1,8 +1,8 @@
 
 class FetchMock {
-  constructor(mockdir) {
-    if ('string' !== typeof mockdir) {
-      throw new Error('There is no mockdir defined.');
+  constructor(required) {
+    if ('object' !== typeof required) {
+      throw new Error('There is no required defined.');
     }
 
     this.urls = [];
@@ -10,11 +10,11 @@ class FetchMock {
     this.loadMock = this.loadMock.bind(this);
     this.fetch = this.fetch.bind(this);
 
-    this.loadMocks(mockdir);
+    this.loadMocks(required);
   }
 
-  loadMocks(mockdir) {
-    const __mocks__ = require(mockdir).default;
+  loadMocks(required) {
+    const __mocks__ = required.default;
     let mocks = Object.keys(__mocks__);
     mocks.forEach(key => {
       this.loadMock(key, __mocks__[key]);
