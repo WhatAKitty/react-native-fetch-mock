@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import expect from 'expect.js';
 import FetchMock from '../src';
 
-const fetch = new FetchMock('../__mocks__').fetch;
+const fetch = new FetchMock(require('../__mocks__')).fetch;
 describe('test fetch mock', () => {
   it('fetch /api/users data', async () => {
     const { data } = await fetch('/api/users');

@@ -31,8 +31,10 @@
   },
   "homepage": "https://github.com/WhatAKitty/react-native-fetch-mock#readme",
   "devDependencies": {
-    "babel": "^6.23.0",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.2",
+    "babel-polyfill": "^6.23.0",
     "babel-preset-react-native": "^1.9.1",
     "eslint": "^3.19.0",
     "expect.js": "^0.3.1",
