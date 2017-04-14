@@ -8,14 +8,14 @@ No fetch mock could be used easily for react-native.
 So, I create one by myself.
 
 ## Roadmap
-- [ ] Combined with Mock.js
+- [x] Combined with Mock.js
 
 ## Usage
 ```
 import FetchMock from 'react-native-fetch-mock';
 
 if (__dev__) {
-  global.fetch = FetchMock('path/to/mocks/directory');
+  global.fetch = FetchMock(require('path/to/mocks/directory'));
 }
 
 // if __dev__ is true, it will back the data you defined in mock directory
