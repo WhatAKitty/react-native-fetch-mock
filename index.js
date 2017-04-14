@@ -1,2 +1,1 @@
-import FetchMock from './src/';
-module.exports = FetchMock;
+module.exports = require('./src');

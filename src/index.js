@@ -38,7 +38,7 @@ class FetchMock {
   }
 
   async fetch(url, options) {
-    const filters = this.urls.filter(url => url === url);
+    const filters = this.urls.filter(uri => uri.url === url);
     if (!filters || filters.length == 0) throw new Error(`No url ${url} is defined.`);
     const mock = filters[0];
     if ('function' !== typeof mock.func) {
@@ -48,4 +48,8 @@ class FetchMock {
   }
 }
 
-export default FetchMock;
+export {
+  FetchMock as default,
+};
+
+export { default as Mock } from 'mockjs';
