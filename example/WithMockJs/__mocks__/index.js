@@ -27,8 +27,8 @@ export default {
     } else {
       filtered = all;
     }
-    return {
+    return Promise.resolve({
       data: filtered,
-    }
+    });
   }
 }
