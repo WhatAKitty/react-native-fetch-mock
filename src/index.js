@@ -14,7 +14,7 @@ class FetchMock {
   }
 
   loadMocks(required) {
-    const __mocks__ = required.default;
+    const __mocks__ = required.default || required;   // es6 import or amd
     let mocks = Object.keys(__mocks__);
     mocks.forEach(key => {
       this.loadMock(key, __mocks__[key]);
