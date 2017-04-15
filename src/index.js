@@ -1,3 +1,4 @@
+import { Mock } from '../';
 
 class FetchMock {
   constructor(required) {
@@ -37,19 +38,20 @@ class FetchMock {
     });
   }
 
-  async fetch(url, options) {
+  fetch(url, options) {
     const filters = this.urls.filter(uri => uri.url === url);
     if (!filters || filters.length == 0) throw new Error(`No url ${url} is defined.`);
     const mock = filters[0];
     if ('function' !== typeof mock.func) {
       throw new Error('There is no url defined in __mocks__');
     }
-    return await mock.func(options);
+    const promise = mock.func(options);
+    if (!promise || 'function' !== typeof promise.then) {
+      throw new Error('The result of mock function should be a promise.');
+    }
+    return promise;
   }
 }
 
-export {
-  FetchMock as default,
-};
-
+export default FetchMock;
 export { default as Mock } from 'mockjs';

@@ -1,7 +1,7 @@
 import { Mock } from '../';
 
 export default {
-  '/api/users': async (options) => {
+  '/api/users': (options) => {
     const all = [
       {
         name: 'John',
@@ -30,11 +30,11 @@ export default {
     } else {
       filtered = all;
     }
-    return {
+    return Promise.resolve({
       data: filtered,
-    }
+    });
   },
-  '/api/users/mockjs': async (options) => {
+  '/api/users/mockjs': (options) => {
     const all = Mock.mock({
       'list|2': [{
         'id|+1': 1,
@@ -60,8 +60,8 @@ export default {
     } else {
       filtered = all;
     }
-    return {
+    return Promise.resolve({
       data: filtered,
-    }
+    });
   }
 }
