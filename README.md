@@ -24,9 +24,9 @@ export default {
         'age|18-54': 1,
       }]
     }).list;
-    return {
+    return Promise.resolve({
       data: all,
-    }
+    });
   }
 }
 ```
