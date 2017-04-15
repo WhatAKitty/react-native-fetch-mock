@@ -1,4 +1,3 @@
-import { Mock } from '../';
 
 class FetchMock {
   constructor(required) {
