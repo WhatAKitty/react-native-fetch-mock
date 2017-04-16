@@ -1,7 +1,7 @@
 import { Mock } from 'react-native-fetch-mock';
 
 export default {
-  '/api/users/mockjs': async (options) => {
+  '/api/users/mockjs': (options) => {
     const all = Mock.mock({
       'list|1-10': [{
         'id|+1': 1,

@@ -1,6 +1,6 @@
 
 export default {
-  '/api/users': async (options) => {
+  '/api/users': (options) => {
     const all = [
       {
         name: 'John',
