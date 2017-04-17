@@ -1,3 +1,4 @@
+import { prueUrl } from './util';
 
 class FetchMock {
   constructor(required) {
@@ -38,7 +39,7 @@ class FetchMock {
   }
 
   fetch(url, options) {
-    const filters = this.urls.filter(uri => uri.url === url);
+    const filters = this.urls.filter(uri => uri.url === prueUrl(url));
     if (!filters || filters.length == 0) throw new Error(`No url ${url} is defined.`);
     const mock = filters[0];
     if ('function' !== typeof mock.func) {
