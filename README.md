@@ -35,7 +35,7 @@ index.js
 import FetchMock from 'react-native-fetch-mock';
 
 if (__dev__) {
-  global.fetch = new FetchMock(require('path/to/mocks/directory'));
+  global.fetch = new FetchMock(require('path/to/mocks/directory')).fetch;
 }
 
 // if __dev__ is true, it will back the data you defined in mock directory
