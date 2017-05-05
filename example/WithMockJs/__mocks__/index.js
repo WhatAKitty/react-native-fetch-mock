@@ -1,7 +1,7 @@
 import { Mock } from 'react-native-fetch-mock';
 
 export default {
-  '/api/users/mockjs': (options) => {
+  '/api/users/mockjs': ({ params }) => {
     const all = Mock.mock({
       'list|1-10': [{
         'id|+1': 1,
@@ -10,14 +10,14 @@ export default {
       }]
     }).list;
     let filtered;
-    if ('undefined' !== typeof options) {
+    if ('undefined' !== typeof params) {
       filtered = all.filter(item => {
         let result = true;
-        const keys = Object.keys(options);
+        const keys = Object.keys(params);
         keys.forEach(key => {
-          const option = options[key];
+          const param = params[key];
 
-          if (item[key] && item[key] !== option) {
+          if (item[key] && item[key] !== param) {
             result = false;
           }
         });

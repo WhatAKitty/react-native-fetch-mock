@@ -1,4 +1,4 @@
-import { prueUrl } from './util';
+import { parseRequest } from './util';
 
 class FetchMock {
   constructor(required) {
@@ -39,13 +39,14 @@ class FetchMock {
   }
 
   fetch(url, options) {
-    const filters = this.urls.filter(uri => uri.url === prueUrl(url));
+    const request = parseRequest(url, options);
+    const filters = this.urls.filter(uri => uri.url === request.url);
     if (!filters || filters.length == 0) throw new Error(`No url ${url} is defined.`);
     const mock = filters[0];
     if ('function' !== typeof mock.func) {
       throw new Error('There is no url defined in __mocks__');
     }
-    const promise = mock.func(options);
+    const promise = mock.func(request);
     if (!promise || 'function' !== typeof promise.then) {
       throw new Error('The result of mock function should be a promise.');
     }

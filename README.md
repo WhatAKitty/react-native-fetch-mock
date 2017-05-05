@@ -16,7 +16,7 @@ So, I create one by myself.
 __ mocks__/index.js
 ```
 export default {
-  '/api/path': (options) => {
+  '/api/path': ({ method, url, params, headers }) => {
     const all = Mock.mock({
       'list|2': [{
         'id|+1': 1,

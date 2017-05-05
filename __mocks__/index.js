@@ -1,7 +1,7 @@
 import { Mock } from '../';
 
 export default {
-  '/api/users': (options) => {
+  '/api/users': ({ params }) => {
     const all = [
       {
         name: 'John',
@@ -13,14 +13,14 @@ export default {
       }
     ];
     let filtered;
-    if ('undefined' !== typeof options) {
+    if ('undefined' !== typeof params) {
       filtered = all.filter(item => {
         let result = true;
-        const keys = Object.keys(options);
+        const keys = Object.keys(params);
         keys.forEach(key => {
-          const option = options[key];
+          const param = params[key];
 
-          if (item[key] && item[key] !== option) {
+          if (item[key] && item[key] !== param) {
             result = false;
           }
         });
@@ -34,7 +34,7 @@ export default {
       data: filtered,
     });
   },
-  '/api/users/mockjs': (options) => {
+  '/api/users/mockjs': ({ params }) => {
     const all = Mock.mock({
       'list|2': [{
         'id|+1': 1,
@@ -43,14 +43,14 @@ export default {
       }]
     }).list;
     let filtered;
-    if ('undefined' !== typeof options) {
+    if ('undefined' !== typeof params) {
       filtered = all.filter(item => {
         let result = true;
-        const keys = Object.keys(options);
+        const keys = Object.keys(params);
         keys.forEach(key => {
-          const option = options[key];
+          const param = params[key];
 
-          if (item[key] && item[key] !== option) {
+          if (item[key] && item[key] !== param) {
             result = false;
           }
         });
