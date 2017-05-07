@@ -44,6 +44,13 @@ describe('test fetch mock', () => {
     expect(data).to.have.length(1);
   });
 
+  it('fetch /api/users/{userId}', async () => {
+    const { data } = await fetch('/api/users/123');
+    expect(data).not.to.be(undefined);
+    expect(data).not.to.be.empty();
+    expect(data).to.be.property('userId', '123');
+  });
+
   it('fetch /api/users/mockjs with mockjs', async () => {
     const { data } = await fetch('/api/users/mockjs');
     expect(data).not.to.be(undefined);

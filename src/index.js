@@ -1,4 +1,4 @@
-import { parseRequest } from './util';
+import { parseRequest, matchUrl } from './util';
 
 class FetchMock {
   constructor(required) {
@@ -9,6 +9,7 @@ class FetchMock {
     this.urls = [];
     this.loadMocks = this.loadMocks.bind(this);
     this.loadMock = this.loadMock.bind(this);
+    this.matchReqUrl = this.matchReqUrl.bind(this);
     this.fetch = this.fetch.bind(this);
 
     this.loadMocks(required);
@@ -38,11 +39,26 @@ class FetchMock {
     });
   }
 
-  fetch(url, options) {
-    const request = parseRequest(url, options);
-    const filters = this.urls.filter(uri => uri.url === request.url);
+  matchReqUrl(request) {
+    let insideParams;
+    const filters = this.urls.filter(uri => {
+      const obj = matchUrl(uri.url, request.url);
+      if (obj.result) {
+        insideParams = obj.params;
+        return true;
+      }
+      return false;
+    });
     if (!filters || filters.length == 0) throw new Error(`No url ${url} is defined.`);
-    const mock = filters[0];
+    request.urlparams = insideParams;
+    return {
+      request,
+      mock: filters[0],
+    };
+  }
+
+  fetch(url, options) {
+    const { request, mock } = this.matchReqUrl(parseRequest(url, options));
     if ('function' !== typeof mock.func) {
       throw new Error('There is no url defined in __mocks__');
     }

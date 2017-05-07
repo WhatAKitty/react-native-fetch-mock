@@ -63,5 +63,12 @@ export default {
     return Promise.resolve({
       data: filtered,
     });
+  },
+  '/api/users/{userId}': ({ urlparams }) => {
+    return Promise.resolve({
+      data: {
+        userId: urlparams.userId,
+      },
+    });
   }
 }

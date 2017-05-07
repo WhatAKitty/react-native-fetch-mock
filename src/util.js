@@ -1,4 +1,13 @@
 
+const removeProctol = (url) => {
+  let index = -1;
+  if ((index = url.indexOf('://')) > -1) {
+    // contains proctol
+    return url.substring(index);
+  }
+  return url;
+}
+
 const parseParamStr = (paramStr, isGet) => {
   let params = {};
   const paramPairs = paramStr.split('&');
@@ -60,8 +69,56 @@ const prueUrl = (url) => {
   return result;
 }
 
+const matchUrl = (sourceUrl, targetUrl) => {
+  if (sourceUrl === targetUrl) {
+    return {
+      result: true,
+      params: {},
+    };
+  }
+  const sourceUrlWithoutProctol = removeProctol(sourceUrl);
+  const targetUrlWithoutProctol = removeProctol(targetUrl);
+  const sourceUrlSplits = sourceUrlWithoutProctol.split('/');
+  const targetUrlSplits = targetUrlWithoutProctol.split('/');
+  
+  if (sourceUrlSplits.length !== targetUrlSplits.length) {
+    return {
+      result: false,
+    }
+  }
+
+  let params = {};
+  for (let i = 0; i < sourceUrlSplits.length; i++) {
+    const sourceUrlSplit = sourceUrlSplits[i];
+    const targetUrlSplit = targetUrlSplits[i];
+    if (sourceUrlSplit === targetUrlSplit) {
+      continue;
+    }
+
+    if (sourceUrlSplit.startsWith('{') && sourceUrlSplit.endsWith('}')) {
+      if (sourceUrlSplit.replace(/[^{]/g,'').length > 1 || sourceUrlSplit.replace(/[^}]/g,'').length > 1) {
+        return {
+          result: false,
+        }
+      }
+      // contains url parameter
+      params[sourceUrlSplit.substring(1, sourceUrlSplit.length - 1)] = targetUrlSplit;
+      continue;
+    }
+    return {
+      result: false,
+    };
+  }
+
+  return {
+    result: true,
+    params,
+  }
+}
+
 export {
   prueUrl,
   parseUrl,
   parseRequest,
+  matchUrl,
 }

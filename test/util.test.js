@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import expect from 'expect.js';
-import { prueUrl, parseUrl, parseRequest } from '../src/util';
+import { prueUrl, parseUrl, parseRequest, matchUrl } from '../src/util';
 
 describe('test util methods', () => {
   it('get prue url', async () => {
@@ -64,6 +64,44 @@ describe('test util methods', () => {
       params: {
         callback: 'http  1'
       },
+    });
+  });
+  it('match url', async () => {
+    expect(matchUrl('http://www.baidu.com', 'http://www.baidu.com')).to.ok();
+  });
+  it('match url with inside parameter', async () => {
+    expect(matchUrl('http://www.baidu.com/{id}', 'http://www.baidu.com/123')).to.be.eql({
+      result: true,
+      params: {
+        id: '123',
+      },
+    });
+    expect(matchUrl('http://www.baidu.com/{id}/do', 'http://www.baidu.com/123/do')).to.be.eql({
+      result: true,
+      params: {
+        id: '123',
+      },
+    });
+    expect(matchUrl('http://www.baidu.com/{id}/do/{name}', 'http://www.baidu.com/123/do/hello')).to.be.eql({
+      result: true,
+      params: {
+        id: '123',
+        name: 'hello',
+      },
+    });
+  });
+  it('match error url with inside parameter', async () => {
+    expect(matchUrl('http://www.baidu.com/{id}{name}/do', 'http://www.baidu.com/123/do')).to.be.eql({
+      result: false,
+    });
+    expect(matchUrl('http://www.baidu.com/{id}{name/do', 'http://www.baidu.com/123/do')).to.be.eql({
+      result: false,
+    });
+    expect(matchUrl('http://www.baidu.com/{id}name}/do', 'http://www.baidu.com/123/do')).to.be.eql({
+      result: false,
+    });
+    expect(matchUrl('http://www.baidu.com/{id}/do', 'http://www.baidu.com/123')).to.be.eql({
+      result: false,
     });
   });
 });
