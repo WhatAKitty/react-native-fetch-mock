@@ -16,7 +16,7 @@ So, I create one by myself.
 __ mocks__/index.js
 ```
 export default {
-  '/api/path': ({ method, url, params, headers }) => {
+  '/api/path': ({ method, url, params, urlparams, headers }) => {
     const all = Mock.mock({
       'list|2': [{
         'id|+1': 1,
@@ -27,7 +27,20 @@ export default {
     return Promise.resolve({
       data: all,
     });
-  }
+  },
+  '/api/path/{id}': ({ method, url, params, urlparams, headers }) => {
+    const all = Mock.mock({
+      'list|2': [{
+        'id|+1': 1,
+        'name': '@first @last',
+        'age|18-54': 1,
+        'urlid': urlparams.id,
+      }]
+    }).list;
+    return Promise.resolve({
+      data: all,
+    });
+  },
 }
 ```
 index.js
