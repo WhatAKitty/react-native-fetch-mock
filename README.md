@@ -85,6 +85,16 @@ fetch('/api/path/123', {
   }),
 });
 ```
+
+## Example Runing
+
+```
+git clone git@github.com:WhatAKitty/react-native-fetch-mock.git
+cd react-native-fetch-mock/example/Basic
+npm install (attention: don't use yarn while install example dep)
+react-native run-ios
+```
+
 ## LICENSE
 
 MIT
