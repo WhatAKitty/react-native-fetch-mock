@@ -5,7 +5,8 @@ import FetchMock, { Mock } from '../';
 const fetch = new FetchMock(require('../__mocks__')).fetch;
 describe('test fetch mock', () => {
   it('fetch /api/users data', async () => {
-    const { data } = await fetch('/api/users');
+    const { status, data } = await fetch('/api/users');
+    expect(status).to.be.eql(200);
     expect(data).not.to.be(undefined);
     expect(data).not.to.be.empty();
     expect(data).to.be.an('array');
@@ -13,7 +14,8 @@ describe('test fetch mock', () => {
   });
 
   it('fetch /api/users?a=b', async () => {
-    const { data } = await fetch('/api/users');
+    const { status, data } = await fetch('/api/users');
+    expect(status).to.be.eql(200);
     expect(data).not.to.be(undefined);
     expect(data).not.to.be.empty();
     expect(data).to.be.an('array');
@@ -21,7 +23,8 @@ describe('test fetch mock', () => {
   });
 
   it('fetch /api/users with url parameters', async () => {
-    const { data } = await fetch('/api/users?name=John');
+    const { status, data } = await fetch('/api/users?name=John');
+    expect(status).to.be.eql(200);
     expect(data).not.to.be(undefined);
     expect(data).not.to.be.empty();
     expect(data).to.be.an('array');
@@ -29,7 +32,50 @@ describe('test fetch mock', () => {
   });
 
   it('fetch /api/users with post parameters', async () => {
-    const { data } = await fetch('/api/users', {
+    const { status, data } = await fetch('/api/users', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: 'John',
+      }),
+    });
+    expect(status).to.be.eql(200);
+    expect(data).not.to.be(undefined);
+    expect(data).not.to.be.empty();
+    expect(data).to.be.an('array');
+    expect(data).to.have.length(1);
+  });
+
+  it('fetch /api/users/{userId}', async () => {
+    const { status, data } = await fetch('/api/users/123');
+    expect(status).to.be.eql(200);
+    expect(data).not.to.be(undefined);
+    expect(data).not.to.be.empty();
+    expect(data).to.be.property('userId', '123');
+  });
+
+  it('fetch /api/users/mockjs with mockjs', async () => {
+    const { status, data } = await fetch('/api/users/mockjs');
+    expect(status).to.be.eql(200);
+    expect(data).not.to.be(undefined);
+    expect(data).not.to.be.empty();
+    expect(data).to.be.an('array');
+    expect(data).to.have.length(2);
+  });
+
+  it('fetch /api/users/mockjs with mockjs', async () => {
+    const { status, data } = await fetch('/api/users/mockjs');
+    expect(status).to.be.eql(200);
+    expect(data).not.to.be(undefined);
+    expect(data).not.to.be.empty();
+    expect(data).to.be.an('array');
+    expect(data).to.have.length(2);
+  });
+
+  it('post /api/users', async () => {
+    const { status } = await fetch('/api/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -38,32 +84,23 @@ describe('test fetch mock', () => {
         name: 'John',
       }),
     });
-    expect(data).not.to.be(undefined);
-    expect(data).not.to.be.empty();
-    expect(data).to.be.an('array');
-    expect(data).to.have.length(1);
+    expect(status).to.be.eql(201);
   });
 
-  it('fetch /api/users/{userId}', async () => {
-    const { data } = await fetch('/api/users/123');
+  it('put /api/users/123', async () => {
+    const { status, data } = await fetch('/api/users/123', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: 'John2',
+      }),
+    });
+    expect(status).to.be.eql(204);
     expect(data).not.to.be(undefined);
     expect(data).not.to.be.empty();
-    expect(data).to.be.property('userId', '123');
-  });
-
-  it('fetch /api/users/mockjs with mockjs', async () => {
-    const { data } = await fetch('/api/users/mockjs');
-    expect(data).not.to.be(undefined);
-    expect(data).not.to.be.empty();
-    expect(data).to.be.an('array');
-    expect(data).to.have.length(2);
-  });
-
-  it('fetch /api/users/mockjs with mockjs', async () => {
-    const { data } = await fetch('/api/users/mockjs');
-    expect(data).not.to.be(undefined);
-    expect(data).not.to.be.empty();
-    expect(data).to.be.an('array');
-    expect(data).to.have.length(2);
+    expect(data).to.be.an('object');
+    expect(data.userId).to.be.eql(123);
   });
 });

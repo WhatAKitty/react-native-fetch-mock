@@ -30,9 +30,10 @@ export default {
     } else {
       filtered = all;
     }
-    return Promise.resolve({
+    return {
+      status: 200,
       data: filtered,
-    });
+    };
   },
   '/api/users/mockjs': ({ params }) => {
     const all = Mock.mock({
@@ -60,15 +61,30 @@ export default {
     } else {
       filtered = all;
     }
-    return Promise.resolve({
+    return {
+      status: 200,
       data: filtered,
-    });
+    };
   },
   '/api/users/{userId}': ({ urlparams }) => {
-    return Promise.resolve({
+    return {
+      status: 200,
       data: {
         userId: urlparams.userId,
       },
-    });
+    };
+  },
+  'POST /api/users': () => {
+    return {
+      status: 201,
+    };
+  },
+  'PUT /api/users/{userId}': ({ urlparams }) => {
+    return {
+      status: 204,
+      data: {
+        userId: urlparams.userId,
+      },
+    };
   }
 }
