@@ -1,4 +1,5 @@
 import { parseRequest, matchUrl } from './util';
+import Response from './response';
 
 class FetchMock {
   constructor(required) {
@@ -26,8 +27,12 @@ class FetchMock {
   loadMock(key, mock) {
     if ('object' !== typeof mock) {
       if ('function' === typeof mock) {
+        var items = key.split(' ');
+        var method = items.length === 2 ? items[0] : 'GET';
+        var url = items.length === 2 ? items[1] : key;
         this.urls.push({
-          url: key,
+          method,
+          url,
           func: mock,
         });
       }
@@ -43,7 +48,7 @@ class FetchMock {
     let insideParams;
     const filters = this.urls.filter(uri => {
       const obj = matchUrl(uri.url, request.url);
-      if (obj.result) {
+      if (obj.result && uri.method.toUpperCase() === request.method.toUpperCase()) {
         insideParams = obj.params;
         return true;
       }
@@ -62,11 +67,13 @@ class FetchMock {
     if ('function' !== typeof mock.func) {
       throw new Error('There is no url defined in __mocks__');
     }
-    const promise = mock.func(request);
-    if (!promise || 'function' !== typeof promise.then) {
-      throw new Error('The result of mock function should be a promise.');
+    const obj = mock.func(request);
+    if (!obj || 'object' !== typeof obj) {
+      throw new Error('The result of mock function should be an object.');
     }
-    return promise;
+
+    const response = new Response(obj);
+    return Promise.resolve(response);
   }
 }
 
