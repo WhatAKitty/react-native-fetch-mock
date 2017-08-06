@@ -29,8 +29,9 @@ export default {
     } else {
       filtered = all;
     }
-    return Promise.resolve({
+    return {
+      status: 200,
       data: filtered,
-    });
+    };
   }
 }
