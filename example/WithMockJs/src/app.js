@@ -19,7 +19,20 @@ class App extends Component {
   }
 
   async getData() {
-    const { data } = await fetch('/api/users/mockjs');
+    const { data, err } = await fetch('/api/users/mockjs')
+      .then(res => {
+        if (res.status !== 200) {
+          throw new Error('fetch failed');
+        }
+        return res.json();
+      })
+      .then(data => ({ data }))
+      .catch(err => ({ err }));
+
+    if (err) {
+      return false;
+    }
+    
     this.setState({
       data,
     });
