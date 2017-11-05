@@ -26,10 +26,7 @@ export default {
         'age|18-54': 1,
       }]
     }).list;
-    return {
-      status: 200,
-      data: all,
-    };
+    return all;   // default status is 200
   },
   '/api/path/{id}': ({ method, url, params, urlparams, headers }) => {
     const all = Mock.mock({
@@ -40,10 +37,7 @@ export default {
         'urlid': urlparams.id,
       }]
     }).list;
-    return {
-      status: 200,
-      data: all,
-    };
+    return all;
   },
   'POST /api/path': ({ method, url, params, urlparams, headers }) => {
     return {
