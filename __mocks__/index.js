@@ -24,7 +24,7 @@ export default {
             result = false;
           }
         });
-        
+
         return result;
       });
     } else {
@@ -55,7 +55,7 @@ export default {
             result = false;
           }
         });
-        
+
         return result;
       });
     } else {
@@ -72,6 +72,11 @@ export default {
       data: {
         userId: urlparams.userId,
       },
+    };
+  },
+  '/api/users/pru/{userId}': ({ urlparams }) => {
+    return {
+      userId: urlparams.userId,
     };
   },
   'POST /api/users': () => {

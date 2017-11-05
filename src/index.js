@@ -1,4 +1,4 @@
-import { parseRequest, matchUrl } from './util';
+import { parseRequest, matchUrl, isNull } from './util';
 import Response from './response';
 
 class FetchMock {
@@ -67,9 +67,18 @@ class FetchMock {
     if ('function' !== typeof mock.func) {
       throw new Error('There is no url defined in __mocks__');
     }
-    const obj = mock.func(request);
-    if (!obj || 'object' !== typeof obj) {
-      throw new Error('The result of mock function should be an object.');
+    let obj = mock.func(request);
+
+    if (isNull(obj)) {
+      throw 'response data should not be undefined or null, it will be an object or an array at least';
+    }
+
+    // resolve prue data object
+    if (isNull(obj.data) && isNull(obj.status)) {
+      obj = {
+        status: 200,
+        data: obj,
+      }
     }
 
     const response = new Response(obj);

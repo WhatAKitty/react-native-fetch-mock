@@ -88,6 +88,17 @@ describe('test fetch mock', () => {
     expect(data).to.have.length(2);
   });
 
+  it('fetch /api/users/{userid} with prue data response', async () => {
+    const response = await fetch('/api/users/pru/121');
+    const { status } = response;
+    expect(status).to.be.eql(200);
+    const data = await response.json();
+    expect(data).not.to.be(undefined);
+    expect(data).not.to.be.empty();
+    expect(data).to.be.an('object');
+    expect(data).to.be.property('userId', '121');
+  });
+
   it('post /api/users', async () => {
     const { status } = await fetch('/api/users', {
       method: 'POST',

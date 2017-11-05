@@ -38,3 +38,6 @@ jspm_packages
 
 # outpu
 dist/
+
+# MACOS
+.DS_Store

@@ -1,4 +1,12 @@
 
+const isNull = (obj) => {
+  if ('undefined' === typeof obj || 'null' === typeof obj || obj === null) {
+    return true;
+  }
+
+  return false;
+}
+
 const removeProctol = (url) => {
   let index = -1;
   if ((index = url.indexOf('://')) > -1) {
@@ -117,6 +125,7 @@ const matchUrl = (sourceUrl, targetUrl) => {
 }
 
 export {
+  isNull,
   prueUrl,
   parseUrl,
   parseRequest,
