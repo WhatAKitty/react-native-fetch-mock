@@ -4,6 +4,8 @@
 
 fetch mock for react-native
 
+[React Version](https://github.com/WhatAKitty/react-fetch-mock)
+
 ## Why FetchMock ?
 No fetch mock could be used easily for react-native.  
 So, I create one by myself.
