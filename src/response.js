@@ -24,6 +24,10 @@ class Response {
     return this[_statusText];
   }
 
+  get ok() {
+    return this[_ok];
+  }
+
   text() {
     try {
       return Promise.resolve(JSON.stringify(this[_data]));

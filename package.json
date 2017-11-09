@@ -1,6 +1,6 @@
 {
   "name": "react-native-fetch-mock",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "fetch mock for react-native",
   "main": "index.js",
   "scripts": {
