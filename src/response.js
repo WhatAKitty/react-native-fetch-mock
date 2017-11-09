@@ -2,6 +2,7 @@
 const _status = Symbol('status');
 const _data = Symbol('data');
 const _statusText = Symbol('statusText');
+const _ok = Symbol('ok');
 
 class Response {
   constructor({
@@ -12,6 +13,7 @@ class Response {
     this[_status] = status;
     this[_data] = data;
     this[_statusText] = statusText;
+    this[_ok] = status < 300 && status >= 200;
   }
 
   get status() {
@@ -20,6 +22,10 @@ class Response {
 
   get statusText() {
     return this[_statusText];
+  }
+
+  get ok() {
+    return this[_ok];
   }
 
   text() {
