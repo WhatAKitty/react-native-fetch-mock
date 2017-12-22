@@ -12,6 +12,7 @@ So, I create one by myself.
 
 ## Roadmap
 - [x] Combined with Mock.js
+- [x] Support exclude for some other path
 - [ ] Proxy for other api server
 - [ ] Support RAP system
 
@@ -59,7 +60,13 @@ index.js
 import FetchMock from 'react-native-fetch-mock';
 
 if (__dev__) {
-  global.fetch = new FetchMock(require('path/to/mocks/directory')).fetch;
+  global.fetch = new FetchMock(require('path/to/mocks/directory'), {
+    fetch: global.fetch,
+    exclude: [
+      'http://www.google.com',
+      /^foo(bar)?$/i,
+    ],
+  }).fetch;
 }
 
 // if __dev__ is true, it will back the data you defined in mock directory

@@ -2,7 +2,13 @@ import 'babel-polyfill';
 import expect from 'expect.js';
 import FetchMock, { Mock } from '../';
 
-const fetch = new FetchMock(require('../__mocks__')).fetch;
+const fetch = new FetchMock(require('../__mocks__'), {
+  fetch: require('isomorphic-fetch'),
+  exclude: [
+    'http://www.baidu.com',
+    /^foo(bar)?$/i,
+  ],
+}).fetch;
 describe('test fetch mock', () => {
   it('fetch /api/users data', async () => {
     const response = await fetch('/api/users');
@@ -97,6 +103,16 @@ describe('test fetch mock', () => {
     expect(data).not.to.be.empty();
     expect(data).to.be.an('object');
     expect(data).to.be.property('userId', '121');
+  });
+
+  it('fetch exclude path', async () => {
+    const response = await fetch('http://www.baidu.com');
+    const { status } = response;
+    expect(status).to.be.eql(200);
+    const html = await response.text();
+    expect(html).not.to.be(undefined);
+    expect(html).not.to.be.empty();
+    expect(html).to.be.an('string');
   });
 
   it('post /api/users', async () => {
