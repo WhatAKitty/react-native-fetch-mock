@@ -72,7 +72,9 @@ class FetchMock {
   isExclude(url) {
     for (let i = 0; i < this.exclude.length; i++) {
       const excludeUrl = this.exclude[i];
-      return excludeUrl === url || (excludeUrl instanceof RegExp && excludeUrl.exec(url) !== null);
+      if (excludeUrl === url || (excludeUrl instanceof RegExp && excludeUrl.exec(url) !== null)) {
+        return true;
+      }
     }
     return false;
   }

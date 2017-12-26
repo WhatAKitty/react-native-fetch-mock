@@ -5,8 +5,8 @@ import FetchMock, { Mock } from '../';
 const fetch = new FetchMock(require('../__mocks__'), {
   fetch: require('isomorphic-fetch'),
   exclude: [
-    'http://www.baidu.com',
     /^foo(bar)?$/i,
+    /http:\/\/www.baidu.com/,
   ],
 }).fetch;
 describe('test fetch mock', () => {
