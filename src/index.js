@@ -97,7 +97,7 @@ class FetchMock {
     }
 
     // resolve prue data object
-    if (isNull(obj.data) && isNull(obj.status)) {
+    if (isNull(obj.status)) {
       obj = {
         status: 200,
         data: obj,
