@@ -13,7 +13,7 @@ So, I create one by myself.
 ## Roadmap
 - [x] Combined with Mock.js
 - [x] Support exclude for some other path
-- [ ] Proxy for other api server
+- [x] Proxy for other api server
 - [ ] Support RAP system
 
 ## Usage
@@ -64,8 +64,15 @@ if (__dev__) {
     fetch: global.fetch,
     exclude: [
       'http://www.google.com',
-      /^foo(bar)?$/i,
+      '/foo(.*)',
     ],
+    proxy: [{
+      path: '/path/for/proxy(.*)',
+      target: 'http://other.proxy.server',
+      process: (proxied, matches) => {
+        return `${proxied.target}${matches[1]}`,
+      },
+    }],
   }).fetch;
 }
 

@@ -1,11 +1,11 @@
 
 const isNull = (obj) => {
-  if ('undefined' === typeof obj || 'null' === typeof obj || obj === null) {
+  if ('undefined' === typeof obj || obj === null) {
     return true;
   }
 
   return false;
-}
+};
 
 const removeProctol = (url) => {
   let index = -1;
@@ -14,7 +14,7 @@ const removeProctol = (url) => {
     return url.substring(index);
   }
   return url;
-}
+};
 
 const parseParamStr = (paramStr, isGet) => {
   let params = {};
@@ -30,7 +30,7 @@ const parseParamStr = (paramStr, isGet) => {
     params[paramPairArray[0]] = paramPairArray.length === 2 ? paramValue : null;
   }
   return params;
-}
+};
 
 const parseBody = (body) => {
   if ('object' === typeof body) {
@@ -41,7 +41,7 @@ const parseBody = (body) => {
   } catch (e) {
     return parseParamStr(body);
   }
-}
+};
 
 const parseUrl = (url) => {
   const index = url.indexOf('?');
@@ -57,8 +57,7 @@ const parseUrl = (url) => {
     url: items[0],
     params: parseParamStr(items[1], true),
   };
-}
-
+};
 
 const parseRequest = (url, options = {}) => {
   const urlObj = parseUrl(url);
@@ -69,13 +68,13 @@ const parseRequest = (url, options = {}) => {
     headers: options.headers,
     params: Object.assign({}, urlObj.params, data),
   };
-}
+};
 
 const prueUrl = (url) => {
   const index = url.indexOf('?');
   const result = index > -1 ? url.substring(0, index) : url;
   return result;
-}
+};
 
 const matchUrl = (sourceUrl, targetUrl) => {
   if (sourceUrl === targetUrl) {
@@ -92,7 +91,7 @@ const matchUrl = (sourceUrl, targetUrl) => {
   if (sourceUrlSplits.length !== targetUrlSplits.length) {
     return {
       result: false,
-    }
+    };
   }
 
   let params = {};
@@ -107,7 +106,7 @@ const matchUrl = (sourceUrl, targetUrl) => {
       if (sourceUrlSplit.replace(/[^{]/g,'').length > 1 || sourceUrlSplit.replace(/[^}]/g,'').length > 1) {
         return {
           result: false,
-        }
+        };
       }
       // contains url parameter
       params[sourceUrlSplit.substring(1, sourceUrlSplit.length - 1)] = targetUrlSplit;
@@ -121,8 +120,8 @@ const matchUrl = (sourceUrl, targetUrl) => {
   return {
     result: true,
     params,
-  }
-}
+  };
+};
 
 export {
   isNull,
@@ -130,4 +129,4 @@ export {
   parseUrl,
   parseRequest,
   matchUrl,
-}
+};

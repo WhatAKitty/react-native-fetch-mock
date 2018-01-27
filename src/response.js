@@ -26,7 +26,7 @@ class Response {
     try {
       return Promise.resolve(JSON.stringify(this[_data]));
     } catch (err) {
-      return Promise.reject(new Errror('failed text invoke.'));
+      return Promise.reject(new Error('failed text invoke.'));
     }
   }
 

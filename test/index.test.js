@@ -1,13 +1,22 @@
 import 'babel-polyfill';
 import expect from 'expect.js';
-import FetchMock, { Mock } from '../';
+import FetchMock, { Mock } from '../src';
 
 const fetch = new FetchMock(require('../__mocks__'), {
   fetch: require('isomorphic-fetch'),
   exclude: [
-    /^foo(bar)?$/i,
-    /http:\/\/www.baidu.com/,
+    'https://www.amazon.com',
+    '/foo/boo/:foo*',
+    'http://:foo*',
+    'https://:foo*',
   ],
+  proxy: [{
+    path: '/ip(.*)',
+    target: 'https://api.ipify.org',
+    process: ({ target }, matches) => {
+      return `${target}${matches[1]}`
+    }
+  }],
 }).fetch;
 describe('test fetch mock', () => {
   it('fetch /api/users data', async () => {
@@ -106,14 +115,14 @@ describe('test fetch mock', () => {
   });
 
   it('fetch exclude path', async () => {
-    const response = await fetch('http://www.baidu.com');
+    const response = await fetch('https://www.amazon.com');
     const { status } = response;
     expect(status).to.be.eql(200);
     const html = await response.text();
     expect(html).not.to.be(undefined);
     expect(html).not.to.be.empty();
     expect(html).to.be.an('string');
-  });
+  }).timeout(20000);
 
   it('post /api/users', async () => {
     const { status } = await fetch('/api/users', {
@@ -145,5 +154,16 @@ describe('test fetch mock', () => {
     expect(data).not.to.be.empty();
     expect(data).to.be.an('object');
     expect(data.userId).to.be.eql(123);
+  });
+
+  it('proxy other api server', async () => {
+    const response = await fetch('/ip/?format=json');
+    const { status } = response;
+    const data = await response.json();
+    expect(status).to.be.eql(200);
+    expect(data).not.to.be(undefined);
+    expect(data).not.to.be.empty();
+    expect(data).to.be.an('object');
+    expect(data.ip).to.be.an('string');
   });
 });

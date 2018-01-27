@@ -1,10 +1,10 @@
 {
   "name": "react-native-fetch-mock",
-  "version": "0.4.2",
+  "version": "0.5.2",
   "description": "fetch mock for react-native",
   "main": "index.js",
   "scripts": {
-    "build": "npm run lint && npm run test && ./node_modules/.bin/babel src --out-dir dist",
+    "build": "yarn lint && yarn test && ./node_modules/.bin/babel src --out-dir dist",
     "test": "./node_modules/.bin/mocha --compilers js:babel-core/register",
     "lint": "./node_modules/.bin/eslint src/**/*.js"
   },
@@ -42,6 +42,7 @@
     "mocha": "^3.2.0"
   },
   "dependencies": {
-    "mockjs": "^1.0.1-beta3"
+    "mockjs": "^1.0.1-beta3",
+    "path-to-regexp": "^2.1.0"
   }
 }

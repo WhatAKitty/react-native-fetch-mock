@@ -1,4 +1,4 @@
-import { Mock } from '../';
+import { Mock } from '../src';
 
 export default {
   '/api/users': ({ params }) => {
