@@ -3,7 +3,7 @@ import expect from 'expect.js';
 import FetchMock, { Mock } from '../src';
 
 const fetch = new FetchMock(require('../__mocks__'), {
-  delay: 2000,   // delay 5s
+  delay: 200,   // delay 200ms
   fetch: require('isomorphic-fetch'),
   exclude: [
     'https://www.amazon.com',
@@ -173,7 +173,7 @@ describe('test fetch mock', () => {
     it('global delay', async () => {
       const start = new Date().getTime();
       await fetch('/api/users');
-      expect(new Date().getTime() - start).to.greaterThan(2000);
+      expect(new Date().getTime() - start).to.greaterThan(199).lessThan(210);
     }).timeout(20000);
 
     it('method delay 30ms', async () => {
@@ -181,7 +181,7 @@ describe('test fetch mock', () => {
       await fetch('/api/users', {
         delay: 30,
       });
-      expect(new Date().getTime() - start).to.greaterThan(30);
+      expect(new Date().getTime() - start).to.greaterThan(29).lessThan(40);
     }).timeout(20000);
 
     it('method delay 3000ms', async () => {
@@ -189,7 +189,7 @@ describe('test fetch mock', () => {
       await fetch('/api/users', {
         delay: 3000,
       });
-      expect(new Date().getTime() - start).to.greaterThan(3000);
+      expect(new Date().getTime() - start).to.greaterThan(2999).lessThan(3100);
     }).timeout(20000);
 
   });
