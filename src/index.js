@@ -14,8 +14,8 @@ class FetchMock {
 
     this.urls = [];
     this.raw = options.fetch;
-    this.exclude = options.exclude;
-    this.proxy = options.proxy;
+    this.exclude = options.exclude || [];
+    this.proxy = options.proxy || [];
 
     this.loadMocks = this.loadMocks.bind(this);
     this.loadMock = this.loadMock.bind(this);
