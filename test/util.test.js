@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import expect from 'expect.js';
-import { prueUrl, parseUrl, parseRequest, matchUrl } from '../src/util';
+import { prueUrl, parseUrl, parseRequest, matchUrl, delay } from '../src/util';
 
 describe('test util methods', () => {
   it('get prue url', async () => {
@@ -104,4 +104,10 @@ describe('test util methods', () => {
       result: false,
     });
   });
+
+  it('delay 5000ms', async () => {
+    const start = new Date().getTime();
+    await delay(5000);
+    expect(new Date().getTime() - start).to.greaterThan(5000);
+  }).timeout(20000);
 });

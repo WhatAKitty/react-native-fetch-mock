@@ -1,5 +1,5 @@
 import pathToRegexp from 'path-to-regexp';
-import { parseRequest, matchUrl, isNull } from './util';
+import { parseRequest, matchUrl, isNull, delay } from './util';
 import Response from './response';
 
 class FetchMock {
@@ -7,6 +7,7 @@ class FetchMock {
     fetch: () => {},
     exclude: [],
     proxy: [],
+    delay: 2000,  // ms
   }) {
     if ('object' !== typeof required) {
       throw new Error('There is no required defined.');
@@ -16,6 +17,7 @@ class FetchMock {
     this.raw = options.fetch;
     this.exclude = options.exclude || [];
     this.proxy = options.proxy || [];
+    this.delayTime = options.delay;
 
     this.loadMocks = this.loadMocks.bind(this);
     this.loadMock = this.loadMock.bind(this);
@@ -106,7 +108,7 @@ class FetchMock {
     return proxied.process ? proxied.process(proxied, matches) : `${proxied.target}/${matches[1]}`;
   }
 
-  fetch(url, options) {
+  fetch(url, options = {}) {
     // using proxy
     if (this.isProxied(url)) {
       url = this.proxied(url);
@@ -137,7 +139,8 @@ class FetchMock {
     }
 
     const response = new Response(obj);
-    return Promise.resolve(response);
+    const delayTime = options.delay || this.delayTime || 0;
+    return delay(delayTime).then(() => Promise.resolve(response));
   }
 }
 

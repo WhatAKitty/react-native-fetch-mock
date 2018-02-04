@@ -14,6 +14,7 @@ So, I create one by myself.
 - [x] Combined with Mock.js
 - [x] Support exclude for some other path
 - [x] Proxy for other api server
+- [x] Delay for global and specific path
 - [ ] Support RAP system
 
 ## Usage
@@ -61,6 +62,7 @@ import FetchMock from 'react-native-fetch-mock';
 
 if (__dev__) {
   global.fetch = new FetchMock(require('path/to/mocks/directory'), {
+    delay: 200, // 200ms
     fetch: global.fetch,
     exclude: [
       'http://www.google.com',
@@ -79,6 +81,7 @@ if (__dev__) {
 // if __dev__ is true, it will back the data you defined in mock directory
 fetch('/api/path', options);
 fetch('/api/path', {
+  delay: 2000,      // /api/path will delayed after 2000ms. Most of suitation, this won't be used usually.
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
