@@ -22,6 +22,14 @@ this[_statusText]=statusText;
 
 
 
+
+
+
+
+
+
+
+
 {
 try{
 return Promise.resolve(JSON.stringify(this[_data]));
@@ -32,7 +40,7 @@ return Promise.reject(new Error('failed text invoke.'));
 
 {
 return this[_data];
-}},{key:'status',get:function get(){return this[_status];}},{key:'statusText',get:function get(){return this[_statusText];}}]);return Response;}();exports.default=
+}},{key:'status',get:function get(){return this[_status];}},{key:'statusText',get:function get(){return this[_statusText];}},{key:'ok',get:function get(){if(this.status>=200&&this.status<300){return true;}else{return false;}}}]);return Response;}();exports.default=
 
 
 
