@@ -6,6 +6,7 @@ class FetchMock {
   constructor(required, options = {
     fetch: () => {},
     exclude: [],
+    fallbackToNetwork: false,
     proxy: [],
     delay: 2000,  // ms
   }) {
@@ -16,6 +17,7 @@ class FetchMock {
     this.urls = [];
     this.raw = options.fetch;
     this.exclude = options.exclude || [];
+    this.fallbackToNetwork = options.fallbackToNetwork || false;
     this.proxy = options.proxy || [];
     this.delayTime = options.delay;
 
@@ -67,9 +69,14 @@ class FetchMock {
       }
       return false;
     });
-    if (!filters || filters.length == 0) throw new Error(`No url ${request.url} is defined.`);
+    if (!filters || filters.length == 0) {
+      return {
+        matched: false,
+      };
+    }
     request.urlparams = insideParams;
     return {
+      matched: true,
       request,
       mock: filters[0],
     };
@@ -114,15 +121,25 @@ class FetchMock {
       url = this.proxied(url);
     }
 
-    // using raw fetch while match exclude
-    if (this.isExclude(url)) {
+    // using raw fetch while match exclude or the fallbackToNetwork value is 'always'
+    if (this.isExclude(url) || this.fallbackToNetwork === 'always') {
       // using raw fetch
       return this.raw(url, options);
     }
 
-    const { request, mock } = this.matchReqUrl(parseRequest(url, options));
+    const { matched, request, mock } = this.matchReqUrl(parseRequest(url, options));
+    if (!matched) {
+      if (this.fallbackToNetwork) {
+        // Unhandled calls fall through to the network
+        return this.raw(url, options);
+      } else {
+        // Unhandled calls throw an error
+        throw new Error(`No url ${url} is defined.`);
+      }
+    }
     if ('function' !== typeof mock.func) {
-      throw new Error('There is no url defined in __mocks__');
+      // the mock func is not a function
+      throw new Error(`The url ${url} defined in __mocks__ is not a function`);
     }
     let obj = mock.func(request);
 

@@ -18,6 +18,7 @@ So, I create one by myself.
 - [x] Proxy for other api server
 - [x] Delay for global and specific path
 - [ ] Support flexible fallback to network([#6](https://github.com/WhatAKitty/react-native-fetch-mock/issues/6))
+- [ ] Support inline valiation(such as: '/api/users/{userid:[a-z|A-Z]}')
 
 ## Usage
 
@@ -70,6 +71,7 @@ if (__dev__) {
       'http://www.google.com',
       '/foo(.*)',
     ],
+    fallbackToNetwork: true,  // ['true', 'false', 'always'], true: Unhandled calls fall through to the network;false: Unhandled calls throw an error; 'always': All calls fall through to the network, effectively disabling react-native-fetch-mock
     proxy: [{
       path: '/path/for/proxy(.*)',
       target: 'http://other.proxy.server',
