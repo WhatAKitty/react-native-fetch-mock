@@ -1,6 +1,8 @@
 # react-native-fetch-mock
 [![Build Status](https://travis-ci.org/WhatAKitty/react-native-fetch-mock.svg?branch=master)](https://travis-ci.org/WhatAKitty/react-native-fetch-mock)
 [![Known Vulnerabilities](https://snyk.io/test/npm/react-native-fetch-mock/badge.svg)](https://snyk.io/test/npm/react-native-fetch-mock)
+[![npm version](https://badge.fury.io/js/react-native-fetch-mock.svg)](https://npmjs.org/package/react-native-fetch-mock)
+[![npm downloads](https://img.shields.io/npm/dm/react-native-fetch-mock.svg?style=flat)](https://npmjs.org/package/react-native-fetch-mock)
 
 fetch mock for react-native
 
