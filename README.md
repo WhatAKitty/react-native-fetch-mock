@@ -17,7 +17,6 @@ So, I create one by myself.
 - [x] Support exclude for some other path
 - [x] Proxy for other api server
 - [x] Delay for global and specific path
-- [ ] Support RAP system
 
 ## Usage
 
