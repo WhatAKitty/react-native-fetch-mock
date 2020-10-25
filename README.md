@@ -12,6 +12,10 @@ fetch mock for react-native
 No fetch mock could be used easily for react-native.  
 So, I create one by myself.
 
+## Requirements
+
+Nodejs >= 12.x
+
 ## Roadmap
 - [x] Combined with Mock.js
 - [x] Support exclude for some other path
