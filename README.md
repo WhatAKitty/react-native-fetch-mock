@@ -17,7 +17,7 @@ So, I create one by myself.
 - [x] Support exclude for some other path
 - [x] Proxy for other api server
 - [x] Delay for global and specific path
-- [ ] Support flexible fallback to network([#6](https://github.com/WhatAKitty/react-native-fetch-mock/issues/6))
+- [x] Support flexible fallback to network([#6](https://github.com/WhatAKitty/react-native-fetch-mock/issues/6))
 - [ ] Support inline valiation(such as: '/api/users/{userid:[a-z|A-Z]}')
 
 ## Usage
