@@ -1,4 +1,4 @@
-import 'babel-polyfill';
+import '@babel/polyfill';
 import expect from 'expect.js';
 import FetchMock, { Mock } from '../src';
 
@@ -56,7 +56,7 @@ describe('test fetch mock with fallbackToNetwork=true', () => {
     try {
     await fetch3('/api/users/123');
     } catch (e) {
-      expect(e.toString()).to.be.eql('Error: only absolute urls are supported')
+      expect(e.toString()).to.be.eql('TypeError: Only absolute URLs are supported')
     }
   }).timeout(20000);
 });

@@ -1,4 +1,4 @@
-import 'babel-polyfill';
+import '@babel/polyfill';
 import expect from 'expect.js';
 import { prueUrl, parseUrl, parseRequest, matchUrl, delay } from '../src/util';
 

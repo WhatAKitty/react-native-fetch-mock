@@ -1,10 +1,10 @@
-import pathToRegexp from 'path-to-regexp';
+import { pathToRegexp } from 'path-to-regexp';
 import { parseRequest, matchUrl, isNull, delay } from './util';
 import Response from './response';
 
 class FetchMock {
   constructor(required, options = {
-    fetch: () => {},
+    fetch: () => { },
     exclude: [],
     fallbackToNetwork: false,
     proxy: [],
@@ -111,7 +111,7 @@ class FetchMock {
         return false;
       }
     });
-    
+
     return proxied.process ? proxied.process(proxied, matches) : `${proxied.target}/${matches[1]}`;
   }
 

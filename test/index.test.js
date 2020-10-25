@@ -1,4 +1,4 @@
-import 'babel-polyfill';
+import '@babel/polyfill';
 import expect from 'expect.js';
 import FetchMock, { Mock } from '../src';
 
