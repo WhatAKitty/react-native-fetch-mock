@@ -3,6 +3,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/npm/react-native-fetch-mock/badge.svg)](https://snyk.io/test/npm/react-native-fetch-mock)
 [![npm version](https://badge.fury.io/js/react-native-fetch-mock.svg)](https://npmjs.org/package/react-native-fetch-mock)
 [![npm downloads](https://img.shields.io/npm/dm/react-native-fetch-mock.svg?style=flat)](https://npmjs.org/package/react-native-fetch-mock)
+[![Rate on Openbase](https://badges.openbase.io/js/rating/react-native-fetch-mock.svg)](https://openbase.io/js/react-native-fetch-mock?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
 
 fetch mock for react-native
 
